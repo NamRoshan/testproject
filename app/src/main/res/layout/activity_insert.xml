@@ -1,0 +1,66 @@
+
+<ScrollView
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".InsertActivity"
+>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/addphoto"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:background="@color/design_default_color_primary_dark"
+        android:layout_width="160dp"
+        android:layout_height="160dp" />
+    <EditText
+        android:ems="10"
+        android:hint="Name"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/edtName"
+        android:layout_below="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:ems="10"
+        android:layout_centerHorizontal="true"
+        android:hint="Age"
+        android:layout_below="@id/edtName"
+        android:id="@+id/edtAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:ems="10"
+        android:layout_centerHorizontal="true"
+        android:hint="Phone"
+        android:layout_below="@id/edtAge"
+        android:id="@+id/edtPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        style="@style/Base.Widget.AppCompat.Button.Colored"
+        android:layout_below="@id/edtPhone"
+        android:text="Save Record"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/btnAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        style="@style/Base.Widget.AppCompat.Button.Colored"
+        android:layout_below="@id/btnAdd"
+        android:text="Record List"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/btnList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
+
+</ScrollView>
