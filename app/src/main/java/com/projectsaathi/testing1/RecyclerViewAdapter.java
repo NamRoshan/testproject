@@ -16,12 +16,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private static final int TYPE_FOOTER = 1;
     private static final int TYPE_ITEM = 2;
 
-    private List<Model> stringArrayList;
+    private List<String> stringArrayList;
     private Activity activity;
 
-    public RecyclerViewAdapter(Activity activity, List<Model> data) {
+    public RecyclerViewAdapter(Activity activity, List<String> strings) {
         this.activity = activity;
-        this.stringArrayList = data;
+        this.stringArrayList = strings;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             });
         } else if (holder instanceof ItemViewHolder) {
             ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-            itemViewHolder.itemText.setText(stringArrayList.get(position).getAge());
+            itemViewHolder.itemText.setText("Recycler Item " + position);
             itemViewHolder.itemText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
