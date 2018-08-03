@@ -1,12 +1,11 @@
 package com.projectsaathi.testing1;
 
-import android.app.Activity;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -16,11 +15,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private static final int TYPE_FOOTER = 1;
     private static final int TYPE_ITEM = 2;
 
-    private List<String> stringArrayList;
-    private Activity activity;
+    private List<Model> stringArrayList;
+    private Context context;
 
-    public RecyclerViewAdapter(Activity activity, List<String> strings) {
-        this.activity = activity;
+    public RecyclerViewAdapter(Context context, List<Model> strings) {
+        this.context = context;
         this.stringArrayList = strings;
     }
 
@@ -30,10 +29,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             //Inflating recycle view item layout
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item, parent, false);
             return new ItemViewHolder(itemView);
-        } else if (viewType == TYPE_HEADER) {
-            //Inflating header view
-            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_header, parent, false);
-            return new HeaderViewHolder(itemView);
         } else if (viewType == TYPE_FOOTER) {
             //Inflating footer view
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_footer, parent, false);
@@ -43,58 +38,31 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        if (holder instanceof HeaderViewHolder) {
-            HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
-            headerHolder.headerTitle.setText("Header View");
-            headerHolder.headerTitle.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(activity, "You clicked at Header View!", Toast.LENGTH_SHORT).show();
-                }
-            });
-        } else if (holder instanceof FooterViewHolder) {
-            FooterViewHolder footerHolder = (FooterViewHolder) holder;
-            footerHolder.footerText.setText("Footer View");
-            footerHolder.footerText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(activity, "You clicked at Footer View", Toast.LENGTH_SHORT).show();
-                }
-            });
-        } else if (holder instanceof ItemViewHolder) {
-            ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-            itemViewHolder.itemText.setText("Recycler Item " + position);
-            itemViewHolder.itemText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(activity, "You clicked at item " + position, Toast.LENGTH_SHORT).show();
-                }
-            });
+        if (stringArrayList.size() > 0) {
+            String total = stringArrayList.get(0).getTotal();
+            if (holder instanceof ItemViewHolder) {
+                ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+                itemViewHolder.itemText.setText(stringArrayList.get(position).getName());
+            } else if (holder instanceof FooterViewHolder) {
+                FooterViewHolder footerHolder = (FooterViewHolder) holder;
+                footerHolder.footerText.setText(total);
+            }
         }
+
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) {
-            return TYPE_HEADER;
-        } else if (position == stringArrayList.size() + 1) {
+        if (position == stringArrayList.size()) {
             return TYPE_FOOTER;
+        } else {
+            return TYPE_ITEM;
         }
-        return TYPE_ITEM;
     }
 
     @Override
     public int getItemCount() {
-        return stringArrayList.size() + 2;
-    }
-
-    private class HeaderViewHolder extends RecyclerView.ViewHolder {
-        TextView headerTitle;
-
-        public HeaderViewHolder(View view) {
-            super(view);
-            headerTitle = view.findViewById(R.id.header_text);
-        }
+        return stringArrayList.size() + 1;
     }
 
     private class FooterViewHolder extends RecyclerView.ViewHolder {
